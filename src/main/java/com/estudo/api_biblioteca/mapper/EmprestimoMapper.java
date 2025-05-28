@@ -3,29 +3,19 @@ package com.estudo.api_biblioteca.mapper;
 import com.estudo.api_biblioteca.dto.request.EmprestimoRequestDTO;
 import com.estudo.api_biblioteca.dto.response.EmprestimoResponseDTO;
 import com.estudo.api_biblioteca.model.Emprestimo;
-import com.estudo.api_biblioteca.model.Livro;
-import com.estudo.api_biblioteca.model.Usuario;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-public class EmprestimoMapper {
+@Mapper(componentModel = "spring")
+public interface EmprestimoMapper {
 
-    public static Emprestimo toEntity(EmprestimoRequestDTO emprestimoRequestDTO, Usuario usuario, Livro livro){
-        return new Emprestimo(
-                usuario,
-                livro,
-                emprestimoRequestDTO.getDataEmprestimo(),
-                emprestimoRequestDTO.getDataDevolucaoPrevista()
-        );
-    }
+    @Mapping(source = "usuarioId", target = "usuario.id")
+    @Mapping(source = "livroId", target = "livro.id")
+    Emprestimo toEntity(EmprestimoRequestDTO emprestimoRequestDTO);
 
-    public static EmprestimoResponseDTO emprestimoResponseDTO(Emprestimo emprestimo){
-        return new EmprestimoResponseDTO(
-                emprestimo.getId(),
-                UsuarioMapper.usuarioResponseDTO(emprestimo.getUsuario()).getNome(),
-                LivroMapper.toDTO(emprestimo.getLivro()).getTitulo(),
-                emprestimo.getDataEmprestimo(),
-                emprestimo.getDataDevolucaoPrevista(),
-                emprestimo.getDataDevolucaoReal()
-        );
-    }
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "usuario.id", target = "usuarioId")
+    @Mapping(source = "livro.id", target = "livroId")
+    EmprestimoResponseDTO toDTO(Emprestimo emprestimo);
 
 }

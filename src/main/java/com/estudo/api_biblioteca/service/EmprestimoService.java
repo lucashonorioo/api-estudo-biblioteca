@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface EmprestimoService {
 
-    EmprestimoResponseDTO criarEmprestimo(Long usuarioId, Long livroId, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista);
+    EmprestimoResponseDTO criarEmprestimo(EmprestimoRequestDTO emprestimoRequestDTO);
     List<EmprestimoResponseDTO> listarEmprestimos();
     EmprestimoResponseDTO buscarEmprestimoPorId(Long id);
     EmprestimoResponseDTO atualizarEmprestimo(Long id, EmprestimoRequestDTO emprestimoAtualizadoDTO);

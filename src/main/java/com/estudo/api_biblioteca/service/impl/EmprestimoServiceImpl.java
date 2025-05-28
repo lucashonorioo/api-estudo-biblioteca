@@ -1,7 +1,10 @@
 package com.estudo.api_biblioteca.service.impl;
 
+import com.estudo.api_biblioteca.dto.request.EmprestimoRequestDTO;
+import com.estudo.api_biblioteca.dto.response.EmprestimoResponseDTO;
 import com.estudo.api_biblioteca.exception.exceptions.BusinessException;
 import com.estudo.api_biblioteca.exception.exceptions.ResourceNotFoundException;
+import com.estudo.api_biblioteca.mapper.EmprestimoMapper;
 import com.estudo.api_biblioteca.model.Emprestimo;
 import com.estudo.api_biblioteca.model.Livro;
 import com.estudo.api_biblioteca.model.Usuario;
@@ -21,11 +24,15 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     private final EmprestimoRepository emprestimoRepository;
     private final LivroRepository livroRepository;
     private final UsuarioRepository usuarioRepository;
+    private final EmprestimoMapper emprestimoMapper;
 
-    public EmprestimoServiceImpl(EmprestimoRepository emprestimoRepository, LivroRepository livroRepository, UsuarioRepository usuarioRepository) {
+
+
+    public EmprestimoServiceImpl(EmprestimoRepository emprestimoRepository, LivroRepository livroRepository, UsuarioRepository usuarioRepository, EmprestimoMapper emprestimoMapper) {
         this.emprestimoRepository = emprestimoRepository;
         this.livroRepository = livroRepository;
         this.usuarioRepository = usuarioRepository;
+        this.emprestimoMapper = emprestimoMapper;
     }
 
     private Usuario buscarUsuario(Long id){
@@ -46,23 +53,28 @@ public class EmprestimoServiceImpl implements EmprestimoService {
 
     @Transactional
     @Override
-    public Emprestimo criarEmprestimo(Long usuarioId, Long livroId, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista) {
+    public EmprestimoResponseDTO criarEmprestimo(EmprestimoRequestDTO emprestimoRequestDTO) {
 
-        if(dataDevolucaoPrevista.isBefore(dataEmprestimo)){
+        if(emprestimoRequestDTO.getDataDevolucaoPrevista().isBefore(emprestimoRequestDTO.getDataEmprestimo())){
             throw new BusinessException("Data de devolução invalida");
         }
 
-        Usuario usuario = buscarUsuario(usuarioId);
-        Livro livro = buscarLivro(livroId);
+        Usuario usuario = buscarUsuario(emprestimoRequestDTO.getUsuarioId());
+        Livro livro = buscarLivro(emprestimoRequestDTO.getLivroId());
 
         validarDisponibilidade(livro);
 
-        Emprestimo novoEmprestimo = new Emprestimo(usuario, livro, dataEmprestimo, dataDevolucaoPrevista);
+        Emprestimo novoEmprestimo = emprestimoMapper.toEntity(emprestimoRequestDTO);
+        novoEmprestimo.setUsuario(usuario);
+        novoEmprestimo.setLivro(livro);
 
         livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() -1);
         livroRepository.save(livro);
 
-        return emprestimoRepository.save(novoEmprestimo);
+        Emprestimo emprestimoSalvo = emprestimoRepository.save(novoEmprestimo);
+
+
+        return emprestimoMapper.toDTO(emprestimoSalvo);
     }
 
     @Override

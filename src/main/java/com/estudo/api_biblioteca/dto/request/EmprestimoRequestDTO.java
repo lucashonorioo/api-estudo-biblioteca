@@ -22,6 +22,7 @@ public class EmprestimoRequestDTO {
     private LocalDate dataDevolucaoPrevista;
 
 
+
     public EmprestimoRequestDTO(Long usuarioId, Long livroId, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista) {
         this.usuarioId = usuarioId;
         this.livroId = livroId;

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class LivroMapper {
 
-    public static Livro toEntity(LivroRequestDTO dto){
+    public Livro toEntity(LivroRequestDTO dto){
         return new Livro(
                 dto.getTitulo(),
                 dto.getAutor(),
@@ -18,7 +18,7 @@ public class LivroMapper {
         );
     }
 
-    public static LivroResponseDTO toDTO(Livro livro){
+    public LivroResponseDTO toDTO(Livro livro){
         return new LivroResponseDTO(
                 livro.getId(),
                 livro.getTitulo(),

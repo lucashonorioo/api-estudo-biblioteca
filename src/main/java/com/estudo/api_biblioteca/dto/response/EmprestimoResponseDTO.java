@@ -8,16 +8,16 @@ import java.time.LocalDate;
 public class EmprestimoResponseDTO {
 
     private Long id;
-    private String nomeUsuario;
-    private String nomeLivro;
+    private Long usuarioId;
+    private Long livroId;
     private LocalDate dataEmprestimo;
     private LocalDate dataDevolucaoPrevista;
     private LocalDate dataDevolucaoReal;
 
-    public EmprestimoResponseDTO(Long id, String nomeUsuario, String nomeLivro, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista, LocalDate dataDevolucaoReal) {
+    public EmprestimoResponseDTO(Long id, Long usuarioId, Long livroId, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista, LocalDate dataDevolucaoReal) {
         this.id = id;
-        this.nomeUsuario = nomeUsuario;
-        this.nomeLivro = nomeLivro;
+        this.usuarioId = usuarioId;
+        this.livroId = livroId;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucaoPrevista = dataDevolucaoPrevista;
         this.dataDevolucaoReal = dataDevolucaoReal;
@@ -27,12 +27,12 @@ public class EmprestimoResponseDTO {
         return id;
     }
 
-    public String getNomeUsuario() {
-        return nomeUsuario;
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public String getNomeLivro() {
-        return nomeLivro;
+    public Long getLivroId() {
+        return livroId;
     }
 
     public LocalDate getDataEmprestimo() {

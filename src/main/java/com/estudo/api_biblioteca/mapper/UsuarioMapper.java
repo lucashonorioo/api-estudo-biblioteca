@@ -6,13 +6,13 @@ import com.estudo.api_biblioteca.model.Usuario;
 
 public class UsuarioMapper {
 
-    public static Usuario toEntity(UsuarioRequestDTO usuarioRequestDTO){
+    public Usuario toEntity(UsuarioRequestDTO usuarioRequestDTO){
         return new Usuario(
                 usuarioRequestDTO.getNome()
         );
     }
 
-    public static UsuarioResponseDTO usuarioResponseDTO(Usuario usuario){
+    public UsuarioResponseDTO toDTO(Usuario usuario){
         return new UsuarioResponseDTO(
                 usuario.getId(),
                 usuario.getNome()
