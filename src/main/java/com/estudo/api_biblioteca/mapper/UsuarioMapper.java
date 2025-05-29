@@ -3,20 +3,14 @@ package com.estudo.api_biblioteca.mapper;
 import com.estudo.api_biblioteca.dto.request.UsuarioRequestDTO;
 import com.estudo.api_biblioteca.dto.response.UsuarioResponseDTO;
 import com.estudo.api_biblioteca.model.Usuario;
+import org.mapstruct.Mapper;
 
-public class UsuarioMapper {
+@Mapper(componentModel = "spring")
+public interface UsuarioMapper {
 
-    public Usuario toEntity(UsuarioRequestDTO usuarioRequestDTO){
-        return new Usuario(
-                usuarioRequestDTO.getNome()
-        );
-    }
+    Usuario toEntity(UsuarioRequestDTO usuarioRequestDTO);
 
-    public UsuarioResponseDTO toDTO(Usuario usuario){
-        return new UsuarioResponseDTO(
-                usuario.getId(),
-                usuario.getNome()
-        );
-    }
+    UsuarioResponseDTO toDTO(Usuario usuario);
+
 
 }
