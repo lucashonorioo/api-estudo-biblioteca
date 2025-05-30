@@ -12,6 +12,6 @@ public interface LivroMapper {
     Livro toEntity(LivroRequestDTO livroRequestDTO);
 
 
-    LivroResponseDTO toDTO(Livro livro);
+    LivroResponseDTO toDto(Livro livro);
 
 }

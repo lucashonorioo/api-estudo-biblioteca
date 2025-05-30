@@ -6,6 +6,8 @@ import com.estudo.api_biblioteca.model.Emprestimo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface EmprestimoMapper {
 
@@ -16,6 +18,11 @@ public interface EmprestimoMapper {
     @Mapping(source = "id", target = "id")
     @Mapping(source = "usuario.id", target = "usuarioId")
     @Mapping(source = "livro.id", target = "livroId")
-    EmprestimoResponseDTO toDTO(Emprestimo emprestimo);
+    EmprestimoResponseDTO toDto(Emprestimo emprestimo);
+
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "usuario.id", target = "usuarioId")
+    @Mapping(source = "livro.id", target = "livroId")
+    List<EmprestimoResponseDTO> toDtoList(List<Emprestimo> emprestimos);
 
 }

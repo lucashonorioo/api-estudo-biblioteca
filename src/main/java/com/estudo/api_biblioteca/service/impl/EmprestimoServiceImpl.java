@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -74,12 +75,14 @@ public class EmprestimoServiceImpl implements EmprestimoService {
         Emprestimo emprestimoSalvo = emprestimoRepository.save(novoEmprestimo);
 
 
-        return emprestimoMapper.toDTO(emprestimoSalvo);
+        return emprestimoMapper.toDto(emprestimoSalvo);
     }
 
     @Override
-    public List<Emprestimo> listarEmprestimos() {
-        return emprestimoRepository.findAll();
+    public List<EmprestimoResponseDTO> listarEmprestimos() {
+        List<Emprestimo> emprestimoList = emprestimoRepository.findAll();
+
+        return emprestimoMapper.toDtoList(emprestimoList);
     }
 
     @Override
