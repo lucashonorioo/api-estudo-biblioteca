@@ -86,39 +86,33 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     }
 
     @Override
-    public Emprestimo buscarEmprestimoPorId(Long id) {
+    public EmprestimoResponseDTO buscarEmprestimoPorId(Long id) {
         if(id == null || id <= 0){
             throw new IllegalArgumentException("O id do emprestimo deve ser positivo");
         }
         Emprestimo emprestimo = emprestimoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Esse emprestimo não existe:", id));
-        return emprestimo;
+        return emprestimoMapper.toDto(emprestimo);
     }
+
     @Transactional
     @Override
-    public Emprestimo atualizarEmprestimo(Long id, Emprestimo emprestimoAtualizado) {
+    public EmprestimoResponseDTO atualizarEmprestimo(Long id, EmprestimoRequestDTO emprestimoRequestDTO) {
         if(id == null || id <= 0){
             throw new IllegalArgumentException("O id do emprestimo deve ser positivo");
         }
         Emprestimo emprestimo = emprestimoRepository.findById(id).orElseThrow(() ->  new ResourceNotFoundException("O emprestimo não existe: ", id));
 
-        if(emprestimoAtualizado.getDataDevolucaoPrevista() != null
-                && emprestimoAtualizado.getDataEmprestimo() != null
-                && emprestimoAtualizado.getDataDevolucaoPrevista().isBefore(emprestimoAtualizado.getDataEmprestimo())){
+        if(emprestimoRequestDTO.getDataDevolucaoPrevista() != null
+                && emprestimoRequestDTO.getDataEmprestimo() != null
+                && emprestimoRequestDTO.getDataDevolucaoPrevista().isBefore(emprestimoRequestDTO.getDataEmprestimo())){
             throw new BusinessException("Data de devolução presvista não pode ser antes da data de emprestimo");
         }
 
-        if(emprestimoAtualizado.getDataEmprestimo() != null){
-            emprestimo.setDataEmprestimo(emprestimoAtualizado.getDataEmprestimo());
-        }
-        if(emprestimoAtualizado.getDataDevolucaoPrevista() != null){
-            emprestimo.setDataDevolucaoPrevista(emprestimoAtualizado.getDataDevolucaoPrevista());
-        }
-        if(emprestimoAtualizado.getDataDevolucaoReal() != null){
-            emprestimo.setDataDevolucaoReal(emprestimoAtualizado.getDataDevolucaoReal());
-        }
+        emprestimoMapper.atualizarEmprestimoFromDto(emprestimoRequestDTO, emprestimo);
 
+        Emprestimo emprestimoSalvo = emprestimoRepository.save(emprestimo);
 
-        return emprestimoRepository.save(emprestimo);
+        return emprestimoMapper.toDto(emprestimoSalvo);
     }
 
     @Transactional

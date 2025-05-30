@@ -5,6 +5,7 @@ import com.estudo.api_biblioteca.dto.response.EmprestimoResponseDTO;
 import com.estudo.api_biblioteca.model.Emprestimo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface EmprestimoMapper {
     @Mapping(source = "livro.id", target = "livroId")
     List<EmprestimoResponseDTO> toDtoList(List<Emprestimo> emprestimos);
 
+    @Mapping(target = "id", ignore = true) // O ID não deve ser alterado na atualização
+    void atualizarEmprestimoFromDto(EmprestimoRequestDTO emprestimoRequestDTO, @MappingTarget Emprestimo emprestimo);
 }

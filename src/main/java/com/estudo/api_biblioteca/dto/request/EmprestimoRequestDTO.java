@@ -1,10 +1,12 @@
 package com.estudo.api_biblioteca.dto.request;
+import com.estudo.api_biblioteca.dto.request.validation.DataDevolucaoValida;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 
+@DataDevolucaoValida
 public class EmprestimoRequestDTO {
 
     @NotNull(message = "Id do usuario é obrigatorio")
@@ -20,6 +22,8 @@ public class EmprestimoRequestDTO {
     @NotNull(message = "Data de devolução prevista é obrigatoria")
     @Future(message = "Data de devolução deve ser no futuro")
     private LocalDate dataDevolucaoPrevista;
+
+    private LocalDate dataDevolucaoReal;
 
 
 
@@ -60,5 +64,13 @@ public class EmprestimoRequestDTO {
 
     public void setDataDevolucaoPrevista(LocalDate dataDevolucaoPrevista) {
         this.dataDevolucaoPrevista = dataDevolucaoPrevista;
+    }
+
+    public LocalDate getDataDevolucaoReal() {
+        return dataDevolucaoReal;
+    }
+
+    public void setDataDevolucaoReal(LocalDate dataDevolucaoReal) {
+        this.dataDevolucaoReal = dataDevolucaoReal;
     }
 }
