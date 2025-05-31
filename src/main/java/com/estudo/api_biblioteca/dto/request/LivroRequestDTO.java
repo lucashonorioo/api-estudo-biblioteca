@@ -10,6 +10,10 @@ import java.util.List;
 
 public class LivroRequestDTO {
 
+    @NotBlank(message = "O ISBM é obrigatorio")
+    @Size(max = 10, message = "Máximo de 10 caracteres")
+    private String isbn;
+
     @NotBlank(message = "O titulo é obrigatorio")
     @Size(max = 100, message = "Máximo de 100 caracteres")
     private String titulo;
@@ -22,10 +26,19 @@ public class LivroRequestDTO {
     private int quantidadeDisponivel;
 
 
-    public LivroRequestDTO(String titulo, String autor, int quantidadeDisponivel) {
+    public LivroRequestDTO(String isbn, String titulo, String autor, int quantidadeDisponivel) {
+        this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
         this.quantidadeDisponivel = quantidadeDisponivel;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitulo() {

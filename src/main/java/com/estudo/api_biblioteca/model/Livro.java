@@ -17,6 +17,9 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
+    private String isbn;
+
     @NotBlank
     @Column(nullable = false, length = 50)
     private String titulo;
@@ -35,15 +38,17 @@ public class Livro {
 
     }
 
-    public Livro(String titulo, String autor, int quantidadeDisponivel) {
+    public Livro(String isbn, String titulo, String autor, int quantidadeDisponivel) {
+        this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
         this.quantidadeDisponivel = quantidadeDisponivel;
         this.emprestimoList = new ArrayList<>();
     }
 
-    public Livro(Long id, String titulo, String autor, int quantidadeDisponivel) {
+    public Livro(Long id,String isbn , String titulo, String autor, int quantidadeDisponivel) {
         this.id = id;
+        this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
         this.quantidadeDisponivel = quantidadeDisponivel;
@@ -98,5 +103,11 @@ public class Livro {
         return emprestimoList;
     }
 
+    public String getIsbn() {
+        return isbn;
+    }
 
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 }

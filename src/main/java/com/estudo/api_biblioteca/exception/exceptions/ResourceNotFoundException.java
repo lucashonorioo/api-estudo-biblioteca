@@ -10,4 +10,11 @@ public class ResourceNotFoundException extends ErrorResponseException{
                 "RESOURCE_NOT_FOUND"
         );
     }
+    public ResourceNotFoundException(String resourceName, String msg){
+        super(
+                String.format("%s com ID %d não encontrado", resourceName, msg),
+                HttpStatus.NOT_FOUND,
+                "RESOURCE_NOT_FOUND"
+        );
+    }
 }

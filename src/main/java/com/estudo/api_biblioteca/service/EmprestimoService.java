@@ -12,7 +12,7 @@ import java.util.List;
 public interface EmprestimoService {
 
     EmprestimoResponseDTO criarEmprestimo(EmprestimoRequestDTO emprestimoRequestDTO);
-    List<EmprestimoResponseDTO> listarEmprestimos();
+    List<EmprestimoResponseDTO> buscarTodosEmprestimos();
     EmprestimoResponseDTO buscarEmprestimoPorId(Long id);
     EmprestimoResponseDTO atualizarEmprestimo(Long id, EmprestimoRequestDTO emprestimoAtualizadoDTO);
     void deletarEmprestimo(Long id);

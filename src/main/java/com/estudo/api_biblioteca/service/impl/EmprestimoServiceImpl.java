@@ -15,8 +15,6 @@ import com.estudo.api_biblioteca.service.EmprestimoService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -79,7 +77,7 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     }
 
     @Override
-    public List<EmprestimoResponseDTO> listarEmprestimos() {
+    public List<EmprestimoResponseDTO> buscarTodosEmprestimos() {
         List<Emprestimo> emprestimoList = emprestimoRepository.findAll();
 
         return emprestimoMapper.toDtoList(emprestimoList);
