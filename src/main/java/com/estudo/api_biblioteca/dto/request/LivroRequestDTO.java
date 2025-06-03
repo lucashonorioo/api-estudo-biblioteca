@@ -11,7 +11,7 @@ import java.util.List;
 public class LivroRequestDTO {
 
     @NotBlank(message = "O ISBM é obrigatorio")
-    @Size(max = 10, message = "Máximo de 10 caracteres")
+    @Size(max = 13, message = "Máximo de 13 caracteres")
     private String isbn;
 
     @NotBlank(message = "O titulo é obrigatorio")

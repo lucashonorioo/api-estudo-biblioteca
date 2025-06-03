@@ -5,6 +5,8 @@ import com.estudo.api_biblioteca.dto.response.LivroResponseDTO;
 import com.estudo.api_biblioteca.model.Livro;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface LivroMapper {
 
@@ -13,5 +15,7 @@ public interface LivroMapper {
 
 
     LivroResponseDTO toDto(Livro livro);
+
+    List<LivroResponseDTO> toDtoList(List<Livro> livros);
 
 }

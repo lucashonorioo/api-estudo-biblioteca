@@ -26,6 +26,6 @@ public interface EmprestimoMapper {
     @Mapping(source = "livro.id", target = "livroId")
     List<EmprestimoResponseDTO> toDtoList(List<Emprestimo> emprestimos);
 
-    @Mapping(target = "id", ignore = true) // O ID não deve ser alterado na atualização
+    @Mapping(target = "id", ignore = true)
     void atualizarEmprestimoFromDto(EmprestimoRequestDTO emprestimoRequestDTO, @MappingTarget Emprestimo emprestimo);
 }

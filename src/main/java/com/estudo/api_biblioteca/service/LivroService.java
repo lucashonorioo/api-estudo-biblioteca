@@ -9,7 +9,7 @@ import java.util.List;
 public interface LivroService {
 
     LivroResponseDTO criarLivro(LivroRequestDTO livroRequestDTO);
-    List<LivroRequestDTO> buscarTodosLivros();
+    List<LivroResponseDTO> buscarTodosLivros();
     LivroResponseDTO buscarLivroPorId(Long id);
     LivroResponseDTO atualizarLivro(Long id, LivroResponseDTO livroResponseDTO);
     void deletarLivro(Long id);
