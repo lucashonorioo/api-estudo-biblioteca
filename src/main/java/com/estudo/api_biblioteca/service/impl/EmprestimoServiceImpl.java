@@ -14,6 +14,7 @@ import com.estudo.api_biblioteca.repository.LivroRepository;
 import com.estudo.api_biblioteca.repository.UsuarioRepository;
 import com.estudo.api_biblioteca.service.EmprestimoService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 
@@ -99,7 +100,7 @@ public class EmprestimoServiceImpl implements EmprestimoService {
 
     @Transactional
     @Override
-    public EmprestimoResponseDTO atualizarEmprestimo(Long id, EmprestimoRequestDTO emprestimoRequestDTO) {
+    public EmprestimoResponseDTO atualizarEmprestimo(Long id, @Valid EmprestimoRequestDTO emprestimoRequestDTO) {
         if(id == null || id <= 0){
             FieldError fieldError = new FieldError("Emprestimo", "id", "O id deve ser positivo e não nulo");
             List<FieldError> fieldErrors = Collections.singletonList(fieldError);
@@ -107,11 +108,6 @@ public class EmprestimoServiceImpl implements EmprestimoService {
         }
         Emprestimo emprestimo = emprestimoRepository.findById(id).orElseThrow(() ->  new ResourceNotFoundException("O emprestimo não existe: ", id));
 
-        if(emprestimoRequestDTO.getDataDevolucaoPrevista() != null
-                && emprestimoRequestDTO.getDataEmprestimo() != null
-                && emprestimoRequestDTO.getDataDevolucaoPrevista().isBefore(emprestimoRequestDTO.getDataEmprestimo())){
-            throw new BusinessException("Data de devolução presvista não pode ser antes da data de emprestimo");
-        }
 
         emprestimoMapper.atualizarEmprestimoFromDto(emprestimoRequestDTO, emprestimo);
 
