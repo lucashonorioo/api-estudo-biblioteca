@@ -4,6 +4,7 @@ import com.estudo.api_biblioteca.dto.request.EmprestimoRequestDTO;
 import com.estudo.api_biblioteca.dto.response.EmprestimoResponseDTO;
 import com.estudo.api_biblioteca.exception.exceptions.BusinessException;
 import com.estudo.api_biblioteca.exception.exceptions.ResourceNotFoundException;
+import com.estudo.api_biblioteca.exception.exceptions.ValidationException;
 import com.estudo.api_biblioteca.mapper.EmprestimoMapper;
 import com.estudo.api_biblioteca.model.Emprestimo;
 import com.estudo.api_biblioteca.model.Livro;
@@ -14,7 +15,9 @@ import com.estudo.api_biblioteca.repository.UsuarioRepository;
 import com.estudo.api_biblioteca.service.EmprestimoService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.FieldError;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -86,7 +89,9 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     @Override
     public EmprestimoResponseDTO buscarEmprestimoPorId(Long id) {
         if(id == null || id <= 0){
-            throw new IllegalArgumentException("O id do emprestimo deve ser positivo");
+            FieldError fieldError = new FieldError("Emprestimo", "id", "O id deve ser positivo e não nulo");
+            List<FieldError> fieldErrors = Collections.singletonList(fieldError);
+            throw new ValidationException(fieldErrors);
         }
         Emprestimo emprestimo = emprestimoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Esse emprestimo não existe:", id));
         return emprestimoMapper.toDto(emprestimo);
@@ -96,7 +101,9 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     @Override
     public EmprestimoResponseDTO atualizarEmprestimo(Long id, EmprestimoRequestDTO emprestimoRequestDTO) {
         if(id == null || id <= 0){
-            throw new IllegalArgumentException("O id do emprestimo deve ser positivo");
+            FieldError fieldError = new FieldError("Emprestimo", "id", "O id deve ser positivo e não nulo");
+            List<FieldError> fieldErrors = Collections.singletonList(fieldError);
+            throw new ValidationException(fieldErrors);
         }
         Emprestimo emprestimo = emprestimoRepository.findById(id).orElseThrow(() ->  new ResourceNotFoundException("O emprestimo não existe: ", id));
 
@@ -117,7 +124,9 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     @Override
     public void deletarEmprestimo(Long id) {
         if (id == null || id <= 0) {
-            throw new IllegalArgumentException("ID do empréstimo inválido: " + id);
+            FieldError fieldError = new FieldError("Emprestimo", "id", "O id deve ser positivo e não nulo");
+            List<FieldError> fieldErrors = Collections.singletonList(fieldError);
+            throw new ValidationException(fieldErrors);
         }
         Emprestimo emprestimo = emprestimoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("O  emprestimo não existe", id));
         emprestimoRepository.deleteById(id);

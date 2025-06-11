@@ -11,7 +11,7 @@ public interface LivroService {
     LivroResponseDTO criarLivro(LivroRequestDTO livroRequestDTO);
     List<LivroResponseDTO> buscarTodosLivros();
     LivroResponseDTO buscarLivroPorId(Long id);
-    LivroResponseDTO atualizarLivro(Long id, LivroResponseDTO livroResponseDTO);
+    LivroResponseDTO atualizarLivro(Long id, LivroRequestDTO livroRequestDTO);
     void deletarLivro(Long id);
 
 }
