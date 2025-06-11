@@ -9,11 +9,13 @@ import com.estudo.api_biblioteca.model.Livro;
 import com.estudo.api_biblioteca.repository.LivroRepository;
 import com.estudo.api_biblioteca.service.LivroService;
 import jakarta.validation.Valid;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class LivroServiceImpl implements LivroService {
 
     private final LivroRepository livroRepository;
@@ -26,7 +28,7 @@ public class LivroServiceImpl implements LivroService {
 
 
     @Override
-    public LivroResponseDTO criarLivro(LivroRequestDTO livroRequestDTO) {
+    public LivroResponseDTO criarLivro(@Valid LivroRequestDTO livroRequestDTO) {
         Livro livro = livroMapper.toEntity(livroRequestDTO);
 
      //   try {

@@ -56,7 +56,7 @@ public class EmprestimoServiceImpl implements EmprestimoService {
 
     @Transactional
     @Override
-    public EmprestimoResponseDTO criarEmprestimo(EmprestimoRequestDTO emprestimoRequestDTO) {
+    public EmprestimoResponseDTO criarEmprestimo(@Valid EmprestimoRequestDTO emprestimoRequestDTO) {
 
         if(emprestimoRequestDTO.getDataDevolucaoPrevista().isBefore(emprestimoRequestDTO.getDataEmprestimo())){
             throw new BusinessException("Data de devolução invalida");

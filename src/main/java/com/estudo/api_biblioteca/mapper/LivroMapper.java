@@ -20,5 +20,5 @@ public interface LivroMapper {
     List<LivroResponseDTO> toDtoList(List<Livro> livros);
 
     @Mapping(target = "id", ignore = true)
-    void  atualizarLivroFromDTO(LivroRequestDTO livroRequestDTO, @MappingTarget Livro livro);
+    void atualizarLivroFromDTO(LivroRequestDTO livroRequestDTO, @MappingTarget Livro livro);
 }
