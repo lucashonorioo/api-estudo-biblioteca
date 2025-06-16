@@ -27,7 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponseDTO criarUsuario(@Valid UsuarioRequestDTO usuarioRequestDTO) {
+    public UsuarioResponseDTO criarUsuario(UsuarioRequestDTO usuarioRequestDTO) {
         Usuario usuario = usuarioMapper.toEntity(usuarioRequestDTO);
 
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
@@ -54,7 +54,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponseDTO atualizarUsuario(Long id, @Valid UsuarioRequestDTO usuarioRequestDTO) {
+    public UsuarioResponseDTO atualizarUsuario(Long id, UsuarioRequestDTO usuarioRequestDTO) {
         if(id == null || id <= 0){
             FieldError fieldError = new FieldError("Usuario", "id", "O id precisa ser positivo e não pode ser nulo");
             List<FieldError> fieldErrors = Collections.singletonList(fieldError);

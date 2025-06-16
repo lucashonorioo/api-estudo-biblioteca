@@ -2,13 +2,14 @@ package com.estudo.api_biblioteca.service.impl;
 
 import com.estudo.api_biblioteca.dto.request.LivroRequestDTO;
 import com.estudo.api_biblioteca.dto.response.LivroResponseDTO;
+import com.estudo.api_biblioteca.exception.exceptions.IsbnJaExistenteException;
 import com.estudo.api_biblioteca.exception.exceptions.ResourceNotFoundException;
 import com.estudo.api_biblioteca.exception.exceptions.ValidationException;
 import com.estudo.api_biblioteca.mapper.LivroMapper;
 import com.estudo.api_biblioteca.model.Livro;
 import com.estudo.api_biblioteca.repository.LivroRepository;
 import com.estudo.api_biblioteca.service.LivroService;
-import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 
@@ -28,17 +29,16 @@ public class LivroServiceImpl implements LivroService {
 
 
     @Override
-    public LivroResponseDTO criarLivro(@Valid LivroRequestDTO livroRequestDTO) {
+    public LivroResponseDTO criarLivro(LivroRequestDTO livroRequestDTO) {
         Livro livro = livroMapper.toEntity(livroRequestDTO);
-
-     //   try {
+        try {
             Livro livroSalvo = livroRepository.save(livro);
             return livroMapper.toDto(livroSalvo);
-     //   } catch () {
-       // throw new IsbnJaExistenteException(livroRequestDTO.getIsbn());
+        } catch (DataIntegrityViolationException e) {
+            throw new IsbnJaExistenteException(livroRequestDTO.getIsbn());
+        }
+
     }
-
-
 
     @Override
     public List<LivroResponseDTO> buscarTodosLivros() {
@@ -59,7 +59,7 @@ public class LivroServiceImpl implements LivroService {
     }
 
     @Override
-    public LivroResponseDTO atualizarLivro(Long id, @Valid LivroRequestDTO livroRequestDTO) {
+    public LivroResponseDTO atualizarLivro(Long id, LivroRequestDTO livroRequestDTO) {
         FieldError fieldError = new FieldError("Livro", "id", "O Id deve ser positivo e não nulo");
         List<FieldError> fieldErrors = Collections.singletonList(fieldError);
         if(id == null || id <= 0){

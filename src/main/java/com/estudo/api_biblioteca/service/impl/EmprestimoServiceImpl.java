@@ -56,7 +56,7 @@ public class EmprestimoServiceImpl implements EmprestimoService {
 
     @Transactional
     @Override
-    public EmprestimoResponseDTO criarEmprestimo(@Valid EmprestimoRequestDTO emprestimoRequestDTO) {
+    public EmprestimoResponseDTO criarEmprestimo(EmprestimoRequestDTO emprestimoRequestDTO) {
 
         if(emprestimoRequestDTO.getDataDevolucaoPrevista().isBefore(emprestimoRequestDTO.getDataEmprestimo())){
             throw new BusinessException("Data de devolução invalida");
@@ -100,7 +100,7 @@ public class EmprestimoServiceImpl implements EmprestimoService {
 
     @Transactional
     @Override
-    public EmprestimoResponseDTO atualizarEmprestimo(Long id, @Valid EmprestimoRequestDTO emprestimoRequestDTO) {
+    public EmprestimoResponseDTO atualizarEmprestimo(Long id, EmprestimoRequestDTO emprestimoRequestDTO) {
         if(id == null || id <= 0){
             FieldError fieldError = new FieldError("Emprestimo", "id", "O id deve ser positivo e não nulo");
             List<FieldError> fieldErrors = Collections.singletonList(fieldError);
