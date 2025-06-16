@@ -5,20 +5,28 @@ import com.estudo.api_biblioteca.dto.response.UsuarioResponseDTO;
 import com.estudo.api_biblioteca.model.Usuario;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper {
 
+    UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "emprestimoList", ignore = true)
     Usuario toEntity(UsuarioRequestDTO usuarioRequestDTO);
 
+    @Mapping(target = "id", ignore = true)
     UsuarioResponseDTO toDto(Usuario usuario);
 
     List<UsuarioResponseDTO> toDtoList(List<Usuario> usuarioList);
 
     @Mapping(target = "id", ignore = true)
-    void atualizarUsuarioFromDto(UsuarioRequestDTO usuarioRequestDTO, Usuario usuario);
+    @Mapping(target = "emprestimoList", ignore = true)
+    void atualizarUsuarioFromDto(UsuarioRequestDTO usuarioRequestDTO, @MappingTarget Usuario usuario);
 
 
 }
