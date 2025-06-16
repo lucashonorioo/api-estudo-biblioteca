@@ -19,7 +19,6 @@ public interface UsuarioMapper {
     @Mapping(target = "emprestimoList", ignore = true)
     Usuario toEntity(UsuarioRequestDTO usuarioRequestDTO);
 
-    @Mapping(target = "id", ignore = true)
     UsuarioResponseDTO toDto(Usuario usuario);
 
     List<UsuarioResponseDTO> toDtoList(List<Usuario> usuarioList);

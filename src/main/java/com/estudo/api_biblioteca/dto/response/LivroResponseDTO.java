@@ -24,6 +24,7 @@ public class LivroResponseDTO {
         return id;
     }
 
+
     public String getIsbn() {
         return isbn;
     }

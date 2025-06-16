@@ -19,7 +19,6 @@ public interface LivroMapper {
     @Mapping(target = "emprestimoList", ignore = true)
     Livro toEntity(LivroRequestDTO livroRequestDTO);
 
-    @Mapping(target = "id", ignore = true)
     LivroResponseDTO toDto(Livro livro);
 
     List<LivroResponseDTO> toDtoList(List<Livro> livros);
