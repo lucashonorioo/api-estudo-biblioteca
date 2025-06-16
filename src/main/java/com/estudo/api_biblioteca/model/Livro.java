@@ -27,7 +27,6 @@ public class Livro {
     @Column(nullable = false, length = 50)
     private String autor;
 
-    @NotBlank
     @Min(0)
     private int quantidadeDisponivel;
 
