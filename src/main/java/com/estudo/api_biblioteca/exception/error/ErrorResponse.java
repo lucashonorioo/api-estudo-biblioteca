@@ -2,30 +2,30 @@ package com.estudo.api_biblioteca.exception.error;
 
 import org.springframework.http.HttpStatus;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public class ErrorResponse {
 
-    private LocalDateTime timestamp;
+    private Instant timestamp;
     private int status;
-    private String code;
-    private String message;
+    private String error;
+    private String errorCode;
     private String path;
 
     public ErrorResponse(){
 
     }
-
-
-    public ErrorResponse(int status, String code, String message, String path) {
-        this.timestamp = LocalDateTime.now();
+    public ErrorResponse(Instant timestamp, int status, String error, String errorCode, String path) {
+        this.timestamp = timestamp;
         this.status = status;
-        this.code = code;
-        this.message = message;
+        this.error = error;
+        this.errorCode = errorCode;
         this.path = path;
     }
 
-    public LocalDateTime getTimestamp() {
+
+    public Instant getTimestamp() {
         return timestamp;
     }
 
@@ -33,12 +33,12 @@ public class ErrorResponse {
         return status;
     }
 
-    public String getCode() {
-        return code;
+    public String getError() {
+        return error;
     }
 
-    public String getMessage() {
-        return message;
+    public String getErrorCode() {
+        return errorCode;
     }
 
     public String getPath() {
