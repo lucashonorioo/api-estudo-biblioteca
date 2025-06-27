@@ -12,8 +12,8 @@ import com.estudo.api_biblioteca.repository.EmprestimoRepository;
 import com.estudo.api_biblioteca.repository.LivroRepository;
 import com.estudo.api_biblioteca.repository.UsuarioRepository;
 import com.estudo.api_biblioteca.service.EmprestimoService;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -50,8 +50,9 @@ public class EmprestimoServiceImpl implements EmprestimoService {
         }
     }
 
-    @Transactional
+
     @Override
+    @Transactional
     public EmprestimoResponseDTO criarEmprestimo(EmprestimoRequestDTO emprestimoRequestDTO) {
 
         if(emprestimoRequestDTO.getDataDevolucaoPrevista().isBefore(emprestimoRequestDTO.getDataEmprestimo())){
@@ -77,6 +78,7 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<EmprestimoResponseDTO> buscarTodosEmprestimos() {
         List<Emprestimo> emprestimoList = emprestimoRepository.findAll();
 
@@ -84,6 +86,7 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public EmprestimoResponseDTO buscarEmprestimoPorId(Long id) {
         if(id == null || id <= 0){
             throw new BusinessException("O id deve ser positivo e não nulo");
@@ -92,8 +95,9 @@ public class EmprestimoServiceImpl implements EmprestimoService {
         return emprestimoMapper.toDto(emprestimo);
     }
 
-    @Transactional
+
     @Override
+    @Transactional
     public EmprestimoResponseDTO atualizarEmprestimo(Long id, EmprestimoRequestDTO emprestimoRequestDTO) {
         if(id == null || id <= 0){
             throw new BusinessException("O id deve ser positivo e não nulo");
@@ -108,8 +112,9 @@ public class EmprestimoServiceImpl implements EmprestimoService {
         return emprestimoMapper.toDto(emprestimoSalvo);
     }
 
-    @Transactional
+
     @Override
+    @Transactional
     public void deletarEmprestimo(Long id) {
         if (id == null || id <= 0) {
             throw new BusinessException("O id deve ser positivo e não nulo");

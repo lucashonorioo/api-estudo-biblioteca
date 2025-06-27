@@ -11,6 +11,7 @@ import com.estudo.api_biblioteca.repository.LivroRepository;
 import com.estudo.api_biblioteca.service.LivroService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class LivroServiceImpl implements LivroService {
 
 
     @Override
+    @Transactional
     public LivroResponseDTO criarLivro(LivroRequestDTO livroRequestDTO) {
         Livro livro = livroMapper.toEntity(livroRequestDTO);
         try {
@@ -39,6 +41,7 @@ public class LivroServiceImpl implements LivroService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<LivroResponseDTO> buscarTodosLivros() {
         List<Livro> livroList = livroRepository.findAll();
 
@@ -46,6 +49,7 @@ public class LivroServiceImpl implements LivroService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public LivroResponseDTO buscarLivroPorId(Long id) {
         if(id == null || id <= 0){
             throw new BusinessException("O ID deve ser positvo e não nulo");
@@ -55,6 +59,7 @@ public class LivroServiceImpl implements LivroService {
     }
 
     @Override
+    @Transactional
     public LivroResponseDTO atualizarLivro(Long id, LivroRequestDTO livroRequestDTO) {
         if(id == null || id <= 0){
             throw new BusinessException("O ID deve ser positvo e não nulo");
@@ -68,6 +73,7 @@ public class LivroServiceImpl implements LivroService {
     }
 
     @Override
+    @Transactional
     public void deletarLivro(Long id) {
         if(id == null || id <= 0){
             throw new BusinessException("O ID deve ser positvo e não nulo");

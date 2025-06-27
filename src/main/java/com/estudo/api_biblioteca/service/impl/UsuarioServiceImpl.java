@@ -34,6 +34,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UsuarioResponseDTO> buscarTodosUsuarios() {
         List<Usuario> usuarios = usuarioRepository.findAll();
 
@@ -41,6 +42,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UsuarioResponseDTO buscarUsuarioPorId(Long id) {
         if(id == null || id <= 0){
             throw new BusinessException("O id precisa ser positivo e não pode ser nulo");
@@ -51,6 +53,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public UsuarioResponseDTO atualizarUsuario(Long id, UsuarioRequestDTO usuarioRequestDTO) {
         if(id == null || id <= 0){
             throw new BusinessException("O id precisa ser positivo e não pode ser nulo");
@@ -66,6 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public void deletarUsuario(Long id) {
         if(id == null || id <= 0){
             throw new BusinessException("O id precisa ser positivo e não pode ser nulo");
