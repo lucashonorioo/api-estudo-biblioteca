@@ -3,6 +3,7 @@ import com.estudo.api_biblioteca.dto.request.validation.DataDevolucaoValida;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.websocket.OnMessage;
 
 import java.time.LocalDate;
 
@@ -23,15 +24,16 @@ public class EmprestimoRequestDTO {
     @Future(message = "Data de devolução deve ser no futuro")
     private LocalDate dataDevolucaoPrevista;
 
+
     private LocalDate dataDevolucaoReal;
 
 
-
-    public EmprestimoRequestDTO(Long usuarioId, Long livroId, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista) {
+    public EmprestimoRequestDTO(Long usuarioId, Long livroId, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista, LocalDate dataDevolucaoReal) {
         this.usuarioId = usuarioId;
         this.livroId = livroId;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucaoPrevista = dataDevolucaoPrevista;
+        this.dataDevolucaoReal = dataDevolucaoReal;
     }
 
     public Long getUsuarioId() {

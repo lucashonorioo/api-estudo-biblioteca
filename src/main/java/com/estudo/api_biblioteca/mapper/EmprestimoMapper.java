@@ -20,9 +20,10 @@ public interface EmprestimoMapper {
     @Mapping(target = "id", ignore = true)
     Emprestimo toEntity(EmprestimoRequestDTO emprestimoRequestDTO);
 
+    @Mapping(source = "usuario.id", target = "usuarioId")
+    @Mapping(source = "livro.id", target = "livroId")
     EmprestimoResponseDTO toDto(Emprestimo emprestimo);
 
-    @Mapping(source = "id", target = "id")
     @Mapping(source = "usuario.id", target = "usuarioId")
     @Mapping(source = "livro.id", target = "livroId")
     List<EmprestimoResponseDTO> toDtoList(List<Emprestimo> emprestimos);

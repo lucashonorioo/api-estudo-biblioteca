@@ -1,7 +1,5 @@
 package com.estudo.api_biblioteca.dto.response;
 
-import com.estudo.api_biblioteca.model.Livro;
-import com.estudo.api_biblioteca.model.Usuario;
 
 import java.time.LocalDate;
 
@@ -22,6 +20,7 @@ public class EmprestimoResponseDTO {
         this.dataDevolucaoPrevista = dataDevolucaoPrevista;
         this.dataDevolucaoReal = dataDevolucaoReal;
     }
+
 
     public Long getId() {
         return id;
